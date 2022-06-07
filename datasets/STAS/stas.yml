@@ -1,0 +1,29 @@
+_BASE_: [
+  '/home/Liang/PaddleDetection/configs/cascade_rcnn/cascade_rcnn_r50_vd_fpn_ssld_2x_coco.yml'
+]
+save_dir: output/cascade_rcnn_r50_vd_fpn_ssld_2x_stas
+
+snapshot_epoch: 1
+
+metric: VOC
+map_type: 11point
+num_classes: 1
+
+TrainDataset:
+  !VOCDataSet
+    dataset_dir: /home/Liang/datasets/STAS
+    anno_path: train.txt
+    label_list: label_list.txt
+    data_fields: ['image', 'gt_bbox', 'gt_class', 'difficult']
+
+EvalDataset:
+  !VOCDataSet
+    dataset_dir: /home/Liang/datasets/STAS
+    anno_path: val.txt
+    label_list: label_list.txt
+    data_fields: ['image', 'gt_bbox', 'gt_class', 'difficult']
+
+TestDataset:
+  !ImageFolder
+    dataset_dir: /home/Liang/datasets/STAS
+    anno_path: label_list.txt
